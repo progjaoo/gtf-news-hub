@@ -176,7 +176,7 @@ export function MainDrawer() {
         </SheetHeader>
 
         {/* LISTA DO MENU */}
-        <nav className="py-2">
+        <nav className="py-2 overflow-y-auto max-h-[calc(100vh-72px)]">
           {menuItems.map((item) => (
             <MenuItemComponent key={item.id} item={item} />
           ))}
