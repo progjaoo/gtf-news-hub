@@ -30,7 +30,7 @@ export function EditorialBar() {
         {/* ESQUERDA - Ícone + texto MENU */}
         <div className="flex items-center gap-0 w-[90px]">
           <MainDrawer/>
-          <span className="text-white font-semibold text-sm">MENU</span>
+          <span className="text-primary-foreground font-semibold text-sm">MENU</span>
         </div>
 
         {/* CENTRO FIXO – Logo da emissora */}
