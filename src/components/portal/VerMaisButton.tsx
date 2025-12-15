@@ -21,7 +21,7 @@ export function VerMaisButton({
           inline-flex items-center justify-center gap-2
           py-2
           text-sm font-semibold
-          rounded-full
+          rounded-[5px]
           border border-border
           text-foreground
           hover:bg-gray-600 hover:text-white
