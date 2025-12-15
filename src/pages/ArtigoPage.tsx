@@ -90,8 +90,7 @@ export default function ArtigoPage() {
               substituído pelo conteúdo real retornado da API com corpo completo
               da notícia.
               <br/>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, libero, delectus asperiores nemo, 
-              dolorem fugiat reiciendis ad facere natus velit nisi eaque quo. Voluptatum atque vel quo ipsam non culpa.
+              
             </p>
             <br />
             <p>
