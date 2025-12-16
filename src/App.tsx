@@ -16,19 +16,17 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-
-      <StationProvider>
-        <EditorialProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/noticia/:id" element={<ArtigoPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </EditorialProvider>
-      </StationProvider>
-
+        <StationProvider>
+          <EditorialProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/noticia/:id" element={<ArtigoPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </EditorialProvider>
+        </StationProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

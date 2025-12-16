@@ -90,7 +90,6 @@ export default function ArtigoPage() {
               substituído pelo conteúdo real retornado da API com corpo completo
               da notícia.
               <br/>
-              
             </p>
             <br />
             <p>
@@ -155,5 +154,4 @@ export default function ArtigoPage() {
     <Footer />
   </div>
 );
-
 }
