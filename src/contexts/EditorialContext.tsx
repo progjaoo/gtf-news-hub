@@ -96,7 +96,9 @@ interface EditorialContextType {
   getEditorialLabel: () => string;
   getEditorialInfo: () => EditorialInfo | undefined;
   editorials: EditorialInfo[];
+  allEditorials: EditorialInfo[];
   getEditorialColor: (type: EditorialType) => string;
+  getEditorialByApiId: (apiId: number) => EditorialInfo | undefined;
 }
 
 const EditorialContext = createContext<EditorialContextType | undefined>(undefined);
@@ -118,6 +120,11 @@ export function EditorialProvider({ children }: { children: ReactNode }) {
 
   const setEditorial = (editorial: EditorialType) => {
     setCurrentEditorial(editorial);
+    // Apply editorial color as CSS variable for dynamic theming
+    const info = editorials.find(e => e.id === editorial);
+    if (info?.corPrimaria) {
+      document.documentElement.style.setProperty('--editorial-active-color', info.corPrimaria);
+    }
   };
 
   const getEditorialClass = () => `editorial-${currentEditorial}`;
@@ -129,11 +136,15 @@ export function EditorialProvider({ children }: { children: ReactNode }) {
 
   const getEditorialInfo = () => editorials.find(e => e.id === currentEditorial);
 
+  const allEditorialsList = [...fatoPopularEditorials, ...radio88fmEditorials];
+
   const getEditorialColor = (type: EditorialType) => {
-    // Search all sets to find the color
-    const allEditorials = [...fatoPopularEditorials, ...radio88fmEditorials];
-    const info = allEditorials.find(e => e.id === type);
+    const info = allEditorialsList.find(e => e.id === type);
     return info?.corPrimaria || '#E83C25';
+  };
+
+  const getEditorialByApiId = (apiId: number) => {
+    return allEditorialsList.find(e => e.apiId === apiId);
   };
 
   return (
@@ -145,7 +156,9 @@ export function EditorialProvider({ children }: { children: ReactNode }) {
         getEditorialLabel,
         getEditorialInfo,
         editorials,
+        allEditorials: allEditorialsList,
         getEditorialColor,
+        getEditorialByApiId,
       }}
     >
       <div className={getEditorialClass()}>

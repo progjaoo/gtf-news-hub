@@ -14,8 +14,23 @@ export function usePostById(id: number) {
   return useQuery<PostApi | undefined>({
     queryKey: ['posts-public', 'single', id],
     queryFn: async () => {
+      // Try public posts first
       const posts = await fetchPostsPublic();
-      return posts.find((p) => p.id === id);
+      const found = posts.find((p) => p.id === id);
+      if (found) return found;
+      
+      // If not found in public, search editorial endpoints (88FM editorials)
+      const editorialIds = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7];
+      for (const eid of editorialIds) {
+        try {
+          const editorialPosts = await fetchPostsByEditorial(eid);
+          const match = editorialPosts.find((p) => p.id === id);
+          if (match) return match;
+        } catch {
+          // continue searching
+        }
+      }
+      return undefined;
     },
     enabled: id > 0,
     staleTime: 1000 * 60 * 5,
