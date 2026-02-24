@@ -13,12 +13,12 @@ import { AlertCircle } from 'lucide-react';
 export default function EditorialPage() {
   const { editorialId } = useParams<{ editorialId: string }>();
   const numericId = Number(editorialId) || 1;
-  const { editorials, setEditorial } = useEditorial();
+  const { editorials, setEditorial, getEditorialByApiId } = useEditorial();
 
   const { data: posts, isLoading, isError } = usePostsByEditorial(numericId);
 
-  // Resolve editorial info from the numeric ID
-  const editorialInfo = editorials.find((_, idx) => idx + 1 === numericId);
+  // Resolve editorial info from the apiId across ALL stations
+  const editorialInfo = getEditorialByApiId(numericId) || editorials.find(e => e.apiId === numericId);
 
   // Sync editorial context for theming
   React.useEffect(() => {
@@ -29,6 +29,7 @@ export default function EditorialPage() {
 
   const editorialLabel = editorialInfo?.label || 'EDITORIAL';
   const editorialType = (editorialInfo?.id || 'noticias') as EditorialType;
+  const editorialColor = editorialInfo?.corPrimaria || '#E83C25';
 
   return (
     <div className="min-h-screen bg-background">
@@ -36,6 +37,13 @@ export default function EditorialPage() {
       <AdBanner />
 
       <section className="container py-10">
+        {/* Nome do editorial no topo */}
+        <div className="mb-6 flex items-center gap-3">
+          <div className="w-4 h-4 rounded-sm" style={{ backgroundColor: editorialColor }} />
+          <h1 className="text-2xl md:text-3xl font-bold uppercase" style={{ color: editorialColor }}>
+            {editorialLabel}
+          </h1>
+        </div>
         <SectionHeader title={editorialLabel} editorial={editorialType} />
 
         {isLoading && (

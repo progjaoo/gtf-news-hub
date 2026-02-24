@@ -8,9 +8,11 @@ import { StickyHeader } from '@/components/portal/StickyHeader';
 import { NewsCard } from '@/components/portal/NewsCard';
 import { VerMaisButton } from '@/components/portal/VerMaisButton';
 import { usePosts } from '@/hooks/useArticles';
+import { useNavigate } from 'react-router-dom';
 
 function PortalContent() {
   const { data: posts, isLoading } = usePosts();
+  const navigate = useNavigate();
   
   const allNews = posts || [];
   
@@ -46,7 +48,7 @@ function PortalContent() {
       {negociosNews.length > 0 && (
         <>
           <EditorialSection title="Negócios" editorial="negocios" news={negociosNews} />
-          <VerMaisButton size="full" />
+          <VerMaisButton size="full" label="Ver mais Negócios" onClick={() => navigate('/editorial/3')} />
         </>
       )}
 
@@ -60,7 +62,7 @@ function PortalContent() {
                 <NewsCard key={news.id} news={news} variant="horizontal" showSubtitle={false} />
               ))}
             </div>
-            <VerMaisButton size="medium" />
+            <VerMaisButton size="medium" label="Ver mais Nacional" onClick={() => navigate('/editorial/4')} />
           </div>
           <div>
             <SectionHeader title="Cultura" editorial="cultura" />
@@ -69,7 +71,7 @@ function PortalContent() {
                 <NewsCard key={news.id} news={news} variant="horizontal" showSubtitle={false} />
               ))}
             </div>
-            <VerMaisButton size="medium" />
+            <VerMaisButton size="medium" label="Ver mais Cultura" onClick={() => navigate('/editorial/6')} />
           </div>
           <div>
             <SectionHeader title="Esportes" editorial="esportes" />
@@ -78,7 +80,7 @@ function PortalContent() {
                 <NewsCard key={news.id} news={news} variant="horizontal" showSubtitle={false} />
               ))}
             </div>
-            <VerMaisButton size="medium" />
+            <VerMaisButton size="medium" label="Ver mais Esportes" onClick={() => navigate('/editorial/2')} />
           </div>
         </div>
       </section>

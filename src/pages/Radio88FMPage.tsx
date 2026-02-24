@@ -141,12 +141,43 @@ function Radio88FMContent() {
           </div>
         </div>
 
-        {/* Botão Ver Mais → Fato Popular */}
-        <div className="flex justify-center mt-8">
+        {/* Botões Ver Mais por editorial */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
+          <div className="flex justify-center">
+            <button
+              onClick={() => navigate('/editorial/6')}
+              className="px-6 py-2 rounded-md font-bold text-xs uppercase tracking-wide text-white transition-all hover:opacity-90"
+              style={{ backgroundColor: '#038CE4' }}
+            >
+              Ver mais Cultura
+            </button>
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={() => navigate('/editorial/1')}
+              className="px-6 py-2 rounded-md font-bold text-xs uppercase tracking-wide text-white transition-all hover:opacity-90"
+              style={{ backgroundColor: '#E83C25' }}
+            >
+              Ver mais Notícias
+            </button>
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={() => navigate('/editorial/2')}
+              className="px-6 py-2 rounded-md font-bold text-xs uppercase tracking-wide text-white transition-all hover:opacity-90"
+              style={{ backgroundColor: '#06AA48' }}
+            >
+              Ver mais Esportes
+            </button>
+          </div>
+        </div>
+
+        {/* Botão geral Fato Popular */}
+        <div className="flex justify-center mt-6">
           <button
             onClick={() => navigate('/fatopopular')}
-            className="px-8 py-3 rounded-md font-bold text-sm uppercase tracking-wide text-primary-foreground transition-all hover:opacity-90"
-            style={{ backgroundColor: currentStation.color }}
+            className="px-8 py-3 rounded-md font-bold text-sm uppercase tracking-wide text-white transition-all hover:opacity-90"
+            style={{ backgroundColor: '#132D52' }}
           >
             Ver mais no Fato Popular
           </button>
