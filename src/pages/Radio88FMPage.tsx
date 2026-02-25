@@ -13,33 +13,62 @@ function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(' ');
 }
 
+const getEditorialColor = (editorial?: string, fallbackColor?: string) => {
+  if (fallbackColor) return fallbackColor;
+  
+  const colors: Record<string, string> = {
+    'Música': '#038CE4', 
+    'Enquete': '#E83C25',  
+    'Debates': '#FDB813',  
+    'Receitas': '#06AA48',
+  };
+
+  return editorial ? (colors[editorial] || '#038CE4') : '#038CE4';
+};
+
 function HeroCard({ post, size = 'normal' }: { post: PostApi; size?: 'large' | 'normal' }) {
   const navigate = useNavigate();
+  
+  // Usamos a função para definir a cor final
+  const bgColor = getEditorialColor(post.editorial, post.corTema);
 
   return (
     <article
       className={cn(
-        'relative overflow-hidden rounded-lg cursor-pointer group',
-        size === 'large' ? 'row-span-2' : ''
+        'flex flex-col overflow-hidden rounded-lg cursor-pointer group shadow-sm bg-white',
+        size === 'large' ? 'md:col-span-1 md:row-span-2' : ''
       )}
       onClick={() => navigate(`/noticia/${post.id}`)}
     >
-      <div className={cn('w-full bg-muted', size === 'large' ? 'h-full min-h-[400px]' : 'h-[195px]')}>
+      <div className={cn(
+        'relative w-full overflow-hidden',
+        size === 'large' ? 'h-[300px] md:h-[70%]' : 'h-[140px]'
+      )}>
         <img
           src={resolveImageUrl(post.imagem)}
           alt={post.titulo}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 p-4"
-           style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 70%, transparent 100%)' }}>
         {post.editorial && (
-          <span className="inline-block px-2 py-0.5 text-xs font-bold uppercase tracking-wide mb-2 rounded"
-                style={{ backgroundColor: post.corTema || '#038CE4', color: '#fff' }}>
-            {post.editorial}
-          </span>
+          <div className="absolute bottom-2 left-2">
+            <span 
+              className="px-2 py-0.5 text-[10px] font-bold uppercase text-white rounded border border-white/20"
+              style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+            >
+              {post.editorial}
+            </span>
+          </div>
         )}
-        <h3 className="text-primary-foreground font-bold leading-tight line-clamp-3 text-sm">
+      </div>
+
+      <div 
+        className="flex-1 p-4 flex flex-col justify-center min-h-[100px]"
+        style={{ backgroundColor: bgColor }}
+      >
+        <h3 className={cn(
+          "text-white font-bold leading-tight line-clamp-3",
+          size === 'large' ? "text-lg md:text-xl" : "text-sm"
+        )}>
           {post.titulo}
         </h3>
       </div>

@@ -2,7 +2,7 @@
 
 const BASE_URL = import.meta.env.VITE_DOTNET_URL || 'http://localhost:5091';
 
-// ─── Interfaces ───
+// ─── Interfaces ─── //
 
 export interface PostApi {
   id: number;
@@ -57,7 +57,7 @@ export function resolveImageUrl(imagem?: string | null): string {
   return `${BASE_URL}${path}`;
 }
 
-// ─── Posts ───
+// ─── Posts ─── // Note
 
 export async function fetchPostsPublic(): Promise<PostApi[]> {
   const res = await fetch(`${BASE_URL}/api/posts/public`);
@@ -77,7 +77,7 @@ export async function searchPosts(query: string): Promise<PostApi[]> {
   return res.json();
 }
 
-// ─── Temas Editoriais ───
+// ─── Temas Editoriais ─── //
 
 export async function fetchAllTemasEditoriais(): Promise<TemaEditorialApi[]> {
   const res = await fetch(`${BASE_URL}/api/tema-editorial`);
@@ -91,7 +91,7 @@ export async function fetchTemaEditorial(id: number): Promise<TemaEditorialApi> 
   return res.json();
 }
 
-// ─── Emissora ───
+// ─── Emissora ─── //
 
 export async function fetchEmissora(id: number): Promise<EmissoraApi> {
   const res = await fetch(`${BASE_URL}/api/emissora/${id}/buscarPorId`);

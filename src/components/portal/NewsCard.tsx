@@ -45,7 +45,7 @@ export function NewsCard({
         onClick={openArticle}
         className={cn("news-card flex gap-4 cursor-pointer p-3", className)}
       >
-      {showImage && (
+        {showImage && (
           <div className="w-28 h-20 flex-shrink-0 overflow-hidden rounded">
             <img
               src={resolveImageUrl(news.imagem)}

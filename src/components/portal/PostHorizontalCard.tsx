@@ -1,9 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { PostApi, resolveImageUrl } from '@/services/dotnetApi';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { usePostById } from '@/hooks/useArticles';
 
 interface PostHorizontalCardProps {
   post: PostApi;
@@ -11,25 +12,26 @@ interface PostHorizontalCardProps {
 
 export function PostHorizontalCard({ post }: PostHorizontalCardProps) {
   const navigate = useNavigate();
-
+  
+  
   const formattedDate = post.publicadoEm
     ? format(new Date(post.publicadoEm), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
     : 'Data não disponível';
-
+  
   return (
     <article
       className="flex flex-col sm:flex-row bg-card rounded-lg overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow duration-200 group cursor-pointer"
       onClick={() => navigate(`/noticia/${post.id}`)}
     >
       {/* Imagem */}
-      <div className="sm:w-72 w-full h-48 sm:h-auto sm:min-h-[200px] flex-shrink-0 overflow-hidden">
+     <div className="sm:w-72 w-full h-48 sm:h-auto sm:min-h-[200px] flex-shrink-0 overflow-hidden">
         <img
           src={resolveImageUrl(post.imagem)}
           alt={post.titulo}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>
-
+ 
       {/* Conteúdo */}
       <div className="flex flex-col justify-between flex-1 p-5 gap-3">
         <div className="space-y-2">
